@@ -4,7 +4,7 @@ dotenv.config({path : './config/.env'})
 
 const mongoConnect = () => {
   mongoose.connect(process.env.MONGO_URL , {
-    dbName : 'userConnect'
+    dbName : 'contDetails'
   }).then(()=> console.log("mongoose Connect")).catch((err)=>console.log(err))
 }
 
