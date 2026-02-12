@@ -7,7 +7,11 @@
 </head>
 <body>
   <div>
-    <h1>404 Error</h1>
+      <h1>404 Error</h1> : <%if(message){%>
+        <h1><%= message %></h1>
+    <% }else {%>
+      <h1>Inavlid Error</h1>
+    <%}%>
   </div>
 </body>
 </html>
