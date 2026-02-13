@@ -1,7 +1,18 @@
 import express from 'express'
 const router = express.Router()
-import { getAllData, showAllData, addData, addNewData, updateData, updateNewData, deleteData } from '../controll/userControll.js';
-import {body} from 'express-validator'
+import {
+  getAllData,
+  showAllData,
+  addData,
+  addNewData,
+  updateData,
+  updateNewData,
+  deleteData,
+  addUser,
+  addingImg,
+} from "../controll/userControll.js";
+import { body } from 'express-validator'
+import { upload } from '../middleware/upload.js';
 
 
 const validationRegistation = [
@@ -38,6 +49,8 @@ router.post("/add", validationRegistation , addNewData );
 router.get("/update/:id", updateData );
 router.post("/update/:id",validationRegistation, updateNewData);
 router.get("/delete/:id", deleteData);
+router.get("/addimg", addingImg);
+router.post('/addImg' ,upload.single("image"), addUser)
 
 
 export default router

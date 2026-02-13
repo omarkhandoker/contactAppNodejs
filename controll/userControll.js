@@ -1,6 +1,7 @@
 import Connect from '../model/contactSchem.js'
 import mongoose from 'mongoose'
-import {validationResult} from 'express-validator'
+import { validationResult } from 'express-validator'
+import uploadFile from '../model/fileSchem.js'
 
 
 export const getAllData = async (req, res) => {
@@ -124,5 +125,21 @@ export const deleteData = async (req, res) => {
     return res.redirect("/");
   } catch (err) {
     res.render("500", { message: err });
+  }
+}
+
+export const addingImg = (req, res) => {
+  res.render('imgadd')
+}
+
+export const addUser = async (req, res) => {
+  try {
+    const newUser = await uploadFile.create({
+      name: req.body.name,
+      image: req.file.filename,
+    });
+    res.json(newUser)
+  } catch (err) {
+     res.render("500", { message: err });
   }
 }

@@ -1,0 +1,10 @@
+<%- include('header/navigaion.ejs') %>
+  <div>
+  <form action="/addImg" method="POST" enctype="multipart/form-data">
+  <input type="text" name="name" />
+  <input type="file" name="image" />
+  <button>Submit</button>
+</form>
+  </div>
+
+<%- include('header/footer.ejs') %>
