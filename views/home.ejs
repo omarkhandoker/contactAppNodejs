@@ -63,6 +63,11 @@
                 </nav>
             </div>
             <a class="ancorTag" href="/addimg">Add a image</a>
+            <div>
+          <% for (let route in view) { %>
+          <h2><%= route %> : <%= view[route] %></h2>
+           <% } %> 
+            </div>
           </div>
         </div>
       </div>

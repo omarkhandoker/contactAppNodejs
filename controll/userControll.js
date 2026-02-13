@@ -6,7 +6,7 @@ import uploadFile from '../model/fileSchem.js'
 
 export const getAllData = async (req, res) => {
   try {
-    const { page = 1, limit = 5 } = req.query;
+    const { page = 1, limit = 4 } = req.query;
     const option = {
       page : parseInt(page),
       limit : parseInt(limit)
@@ -25,6 +25,7 @@ export const getAllData = async (req, res) => {
       prevPage: result.prevPage,
       nextPage: result.nextPage,
       getData: result.docs,
+      view : req.session.view
     });
 
   } catch(err) {
