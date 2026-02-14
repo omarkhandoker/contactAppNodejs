@@ -1,0 +1,40 @@
+
+<%- include('header/navigaion.ejs') %>
+ <div class="w-75 justify-content-center m-auto mt-5">
+<ul class="nav nav-pills nav-justified mb-3" id="ex1">
+  <li class="nav-item w-25" role="presentation">
+    <a class="nav-link active" id="tab-login" data-mdb-pill-init href="/login" role="tab">Login</a>
+  </li>
+
+</ul>
+
+<!-- Pills content -->
+<div class="tab-content">
+  <div class=" active" id="pills-login" role="tabpanel">
+    <form action="/login" method="post">
+     
+      <!-- Email input -->
+      <div data-mdb-input-init class="form-outline mb-4">
+        <input type="text" name="userName" id="loginName" class="form-control" arial-describedby="emailHelp" />
+        <label class="form-label" for="loginName">Email or username</label>
+      </div>
+
+      <!-- Password input -->
+      <div data-mdb-input-init class="form-outline mb-4">
+        <input type="password" name="userPassword" id="loginPassword" class="form-control" />
+        <label class="form-label" for="loginPassword">Password</label>
+      </div>
+
+      <!-- Submit button -->
+      <button type="submit"  class="btn btn-primary btn-block mb-4">Sign in</button>
+
+     </form>
+
+     <% if(error){ %>
+        <div class="alert alert-danger mt-3"><%=error  %></div>
+      <% } %>
+<!-- Pills content -->
+  </div>
+</div>
+
+<%- include('header/footer.ejs') %>

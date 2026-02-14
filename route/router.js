@@ -10,6 +10,10 @@ import {
   deleteData,
   addUser,
   addingImg,
+  userLogin,
+  userSing,
+  userSingPost,
+  userLoginPost,
 } from "../controll/userControll.js";
 import { body } from 'express-validator'
 import { upload } from '../middleware/upload.js';
@@ -42,15 +46,32 @@ const validationRegistation = [
 
 ];
 
-router.get("/", getAllData );
-router.get("/show/:id", showAllData );
+let chackAuth = (req, res, next) => {
+  if (req.session.user) {
+    next();
+  } else {
+    res.redirect("/login");
+  }
+};
+
+router.get("/" , chackAuth , getAllData );
+router.get("/show/:id",chackAuth, showAllData );
 router.get("/add", addData );
-router.post("/add", validationRegistation , addNewData );
-router.get("/update/:id", updateData );
-router.post("/update/:id",validationRegistation, updateNewData);
-router.get("/delete/:id", deleteData);
-router.get("/addimg", addingImg);
-router.post('/addImg' ,upload.single("image"), addUser)
+router.post("/add",chackAuth, validationRegistation , addNewData );
+router.get("/update/:id",chackAuth, updateData );
+router.post("/update/:id", chackAuth,validationRegistation, updateNewData);
+router.get("/delete/:id",chackAuth, deleteData);
+router.get("/addimg",chackAuth, addingImg);
+router.post('/addImg',chackAuth ,  upload.single("image"), addUser)
+router.get("/login", userLogin); 
+router.post("/login", chackAuth,userLoginPost); 
+router.get("/singup", userSing);
+router.post("/singup", userSingPost);
+router.get('/logout', (req, res) => {
+  req.session.destroy(() => {
+    res.redirect('/')
+  })
+})
 
 
 export default router

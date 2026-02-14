@@ -1,0 +1,48 @@
+ <%- include('header/navigaion.ejs') %>
+ <div class="w-75 justify-content-center m-auto mt-5">
+           <!-- Register buttons -->
+      <div class="text-center">
+        <p>Not a member? <a href="#!">Register</a></p>
+      </div>
+
+      <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="tab-register" data-mdb-pill-init href="#pills-register" role="tab"
+      aria-controls="pills-register" aria-selected="false">Register</a>
+  </li>
+</ul>
+
+  <div class="tab-pane " id="pills-register" role="tabpanel" aria-labelledby="tab-register">
+    <form  action="/singup" method="post"> 
+      <!-- Name input -->
+      <div data-mdb-input-init class="form-outline mb-4">
+        <input type="text" name="full_name" id="registerName" class="form-control" />
+        <label class="form-label" for="registerName">Name</label>
+      </div>
+
+      <!-- Username input -->
+      <div data-mdb-input-init class="form-outline mb-4">
+        <input type="text" name="userName" id="registerUsername" class="form-control" />
+        <label class="form-label" for="registerUsername">Username</label>
+      </div>
+
+      <!-- Email input -->
+      <!-- <div data-mdb-input-init class="form-outline mb-4">
+        <input type="email" name="email" id="registerEmail" class="form-control" />
+        <label class="form-label" for="registerEmail">Email</label>
+      </div> -->
+
+      <!-- Password input -->
+      <div data-mdb-input-init class="form-outline mb-4">
+        <input type="password" name="userPassword" id="registerPassword" class="form-control" />
+        <label class="form-label" for="registerPassword">Password</label>
+      </div>
+
+     
+      <!-- Submit button -->
+      <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-3">Sign in</button>
+    </form>
+  </div>
+
+  </div>
+  <%- include('header/footer.ejs') %>

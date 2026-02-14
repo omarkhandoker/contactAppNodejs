@@ -2,6 +2,9 @@ import Connect from '../model/contactSchem.js'
 import mongoose from 'mongoose'
 import { validationResult } from 'express-validator'
 import uploadFile from '../model/fileSchem.js'
+import userLog from '../model/userLog.js'
+import bcrypt from 'bcrypt'
+
 
 
 export const getAllData = async (req, res) => {
@@ -144,3 +147,44 @@ export const addUser = async (req, res) => {
      res.render("500", { message: err });
   }
 }
+
+
+export const userLogin = async (req, res) => {
+  if (req.session.user) {
+  res.redirect("/");
+  } else {
+     res.render("login", { error: null });
+ }
+  
+}
+
+export const userLoginPost = async (req, res) => {
+  const { userName, userPassword } = req.body;
+  
+  const user = await userLog.findOne({ userName });
+  if (!user) return res.render('login', { error: "User Not Found" })
+  
+
+  const isMatch = await bcrypt.compare(userPassword, user.userPassword)
+  if (!isMatch) return res.render('login', { error: "Invalid Password" })
+  
+  return res.redirect('/')
+  
+}
+
+export const userSing = async (req, res) => {
+  if (req.session.user) {
+    res.redirect('/')
+  } else {
+    res.render("singUp");
+  }
+};
+
+export const userSingPost = async (req, res) => {
+  const { name, userName, userPassword } = req.body;
+  const userHash = await bcrypt.hash(userPassword ,10)
+  await userLog.create({ name, userName, userPassword: userHash });
+  req.session.user = userName;
+  res.redirect("/")
+};
+
