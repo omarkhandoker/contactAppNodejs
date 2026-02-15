@@ -14,6 +14,7 @@
 
   <div class="tab-pane " id="pills-register" role="tabpanel" aria-labelledby="tab-register">
     <form  action="/singup" method="post"> 
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
       <!-- Name input -->
       <div data-mdb-input-init class="form-outline mb-4">
         <input type="text" name="full_name" id="registerName" class="form-control" />

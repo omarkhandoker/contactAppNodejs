@@ -17,6 +17,8 @@ import {
 } from "../controll/userControll.js";
 import { body } from 'express-validator'
 import { upload } from '../middleware/upload.js';
+//CSRF TOKEN 
+import { csrfProtcetion } from '../middleware/csrfMiddle.js';
 
 
 const validationRegistation = [
@@ -34,7 +36,6 @@ const validationRegistation = [
     .withMessage("First Name is require")
     .isEmail()
     .withMessage("Only letter Are Allow"),
-  ,
   body("phone")
     .trim()
     .notEmpty()
@@ -56,17 +57,17 @@ let chackAuth = (req, res, next) => {
 
 router.get("/" , chackAuth , getAllData );
 router.get("/show/:id",chackAuth, showAllData );
-router.get("/add", addData );
-router.post("/add",chackAuth, validationRegistation , addNewData );
-router.get("/update/:id",chackAuth, updateData );
-router.post("/update/:id", chackAuth,validationRegistation, updateNewData);
+router.get("/add",csrfProtcetion, addData );
+router.post("/add",chackAuth,csrfProtcetion, validationRegistation , addNewData );
+router.get("/update/:id",csrfProtcetion,chackAuth, updateData );
+router.post("/update/:id",csrfProtcetion, chackAuth,validationRegistation, updateNewData);
 router.get("/delete/:id",chackAuth, deleteData);
 router.get("/addimg",chackAuth, addingImg);
-router.post('/addImg',chackAuth ,  upload.single("image"), addUser)
-router.get("/login", userLogin); 
-router.post("/login", chackAuth,userLoginPost); 
-router.get("/singup", userSing);
-router.post("/singup", userSingPost);
+router.post('/addImg',chackAuth ,csrfProtcetion , upload.single("image"), addUser)
+router.get("/login",csrfProtcetion , userLogin); 
+router.post("/login", csrfProtcetion,userLoginPost); 
+router.get("/singup",csrfProtcetion, userSing);
+router.post("/singup",csrfProtcetion , userSingPost);
 router.get('/logout', (req, res) => {
   req.session.destroy(() => {
     res.redirect('/')

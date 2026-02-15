@@ -52,7 +52,7 @@ export const showAllData = async (req, res) => {
 
 export const addData = async (req, res) => {
   try {
-    await res.render('add')
+    await res.render("add", { csrfToken: req.csrfToken() });
   } catch (err) {
       res.render("500", { message: err });
   }
@@ -91,7 +91,7 @@ export const updateData = async (req, res) => {
   try {
     const getData = await Connect.findById(req.params.id);
     if(!getData) return res.render("404", { message: "User Not Found" });
-    res.render('update', {getData})
+    res.render('update', {getData , csrfToken: req.csrfToken() })
   } catch (err) {
      res.render("500", { message: err });
   }
@@ -114,8 +114,7 @@ export const updateNewData = async (req, res) => {
   } catch (err) {
     res.render("500", { message: err });
   }
-  const getData = await Connect.find()
-  res.json(getData)
+
 }
 
 
@@ -153,7 +152,7 @@ export const userLogin = async (req, res) => {
   if (req.session.user) {
   res.redirect("/");
   } else {
-     res.render("login", { error: null });
+     res.render("login", { error: null , csrfToken: req.csrfToken()  });
  }
   
 }
@@ -168,6 +167,7 @@ export const userLoginPost = async (req, res) => {
   const isMatch = await bcrypt.compare(userPassword, user.userPassword)
   if (!isMatch) return res.render('login', { error: "Invalid Password" })
   
+  req.session.user = userName;
   return res.redirect('/')
   
 }
@@ -176,7 +176,7 @@ export const userSing = async (req, res) => {
   if (req.session.user) {
     res.redirect('/')
   } else {
-    res.render("singUp");
+    res.render("singUp", { csrfToken: req.csrfToken() });
   }
 };
 

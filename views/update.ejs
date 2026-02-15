@@ -10,6 +10,7 @@
                 <strong>Add New Contact</strong>
               </div>           
             <form action="/update/<%=getData._id %>" method="post">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                 <div class="card-body">
                 <div class="row">
                   <div class="col-md-12">

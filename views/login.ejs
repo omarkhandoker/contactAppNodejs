@@ -12,7 +12,7 @@
 <div class="tab-content">
   <div class=" active" id="pills-login" role="tabpanel">
     <form action="/login" method="post">
-     
+     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
       <!-- Email input -->
       <div data-mdb-input-init class="form-outline mb-4">
         <input type="text" name="userName" id="loginName" class="form-control" arial-describedby="emailHelp" />

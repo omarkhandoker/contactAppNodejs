@@ -6,6 +6,9 @@ import DBconnect from './DB/dbConnect.js'
 import router from './route/router.js'
 // Session 
 import session from 'express-session'
+//Csrf Token & Cookies
+import cookie from "cookie-parser"
+
 
 
 app.use(session({
@@ -13,6 +16,8 @@ app.use(session({
   resave: false,
   saveUninitialized : false
 }))
+
+
 
 // Global Router 
 app.use((req, res, next) => {
@@ -30,6 +35,7 @@ app.use(express.urlencoded({extended : false}))
 app.use( express.static('public'))
 app.use(express.json())
 app.set('view engine', 'ejs')
+app.use(cookie())
 
 app.use(router)
 
